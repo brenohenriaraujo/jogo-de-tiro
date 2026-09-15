@@ -1,33 +1,30 @@
 const jogo = document.getElementById("jogo");
 const nave = document.getElementById("nave");
-
 const pontosTexto = document.getElementById("pontos");
 const vidasTexto = document.getElementById("vidas");
 const faseTexto = document.getElementById("fase");
-
 const mensagem = document.getElementById("mensagem");
 const titulo = document.getElementById("titulo");
 const texto = document.getElementById("texto");
+const avisoFase = document.getElementById("avisoFase");
+const textoFase = document.getElementById("textoFase");
 
 let pontos = 0;
 let vidas = 3;
 let fase = 1;
 let ativo = true;
-
 let esquerda = false;
 let direita = false;
-
 let inimigos = [];
 let tiros = [];
 
-
 document.addEventListener("keydown", function(e) {
 
-    if (e.key == "a") {
+    if (e.key == "ArrowLeft") {
         esquerda = true;
     }
 
-    if (e.key == "d") {
+    if (e.key == "ArrowRight") {
         direita = true;
     }
 
@@ -36,18 +33,16 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-
 document.addEventListener("keyup", function(e) {
 
-    if (e.key == "a") {
+    if (e.key == "ArrowLeft") {
         esquerda = false;
     }
 
-    if (e.key == "d") {
+    if (e.key == "ArrowRight") {
         direita = false;
     }
 });
-
 
 function atirar() {
 
@@ -62,9 +57,9 @@ function atirar() {
     tiro.style.top = nave.offsetTop + "px";
 
     jogo.appendChild(tiro);
+
     tiros.push(tiro);
 }
-
 
 function criarInimigo() {
 
@@ -79,17 +74,15 @@ function criarInimigo() {
         Math.random() * (jogo.clientWidth - 40) + "px";
 
     jogo.appendChild(inimigo);
+
     inimigos.push(inimigo);
 }
 
-
 setInterval(criarInimigo, 1200);
-
 
 function atualizar() {
 
     if (!ativo) return;
-
 
     if (esquerda) {
         nave.style.left = nave.offsetLeft - 10 + "px";
@@ -99,7 +92,6 @@ function atualizar() {
         nave.style.left = nave.offsetLeft + 10 + "px";
     }
 
-
     if (nave.offsetLeft < 0) {
         nave.style.left = "0px";
     }
@@ -108,7 +100,6 @@ function atualizar() {
         nave.style.left =
             jogo.clientWidth - nave.offsetWidth + "px";
     }
-
 
     tiros.forEach(function(tiro, i) {
 
@@ -120,21 +111,10 @@ function atualizar() {
         }
     });
 
-
     inimigos.forEach(function(inimigo, i) {
 
         inimigo.style.top =
             inimigo.offsetTop + fase + 1 + "px";
-
-
-        if (inimigo.offsetTop > jogo.clientHeight) {
-
-            inimigo.remove();
-            inimigos.splice(i, 1);
-
-            perderVida();
-        }
-
 
         if (
             inimigo.offsetLeft < nave.offsetLeft + nave.offsetWidth &&
@@ -144,18 +124,17 @@ function atualizar() {
         ) {
 
             inimigo.remove();
+
             inimigos.splice(i, 1);
 
             perderVida();
         }
     });
 
-
     verificarColisao();
 
     requestAnimationFrame(atualizar);
 }
-
 
 function verificarColisao() {
 
@@ -180,15 +159,17 @@ function verificarColisao() {
 
                 pontosTexto.innerHTML = pontos;
 
+                let novaFase = Math.floor(pontos / 20) + 1;
 
-                fase = Math.floor(pontos / 20) + 1;
-
-                if (fase > 5) {
-                    fase = 5;
+                if (novaFase > 5) {
+                    novaFase = 5;
                 }
 
-                faseTexto.innerHTML = fase;
-
+                if (novaFase > fase) {
+                    fase = novaFase;
+                    faseTexto.innerHTML = fase;
+                    mostrarFase();
+                }
 
                 if (pontos >= 100) {
                     vencer();
@@ -198,6 +179,16 @@ function verificarColisao() {
     });
 }
 
+function mostrarFase() {
+
+    textoFase.innerHTML = "🚀 FASE " + fase;
+
+    avisoFase.classList.remove("escondido");
+
+    setTimeout(function() {
+        avisoFase.classList.add("escondido");
+    }, 1500);
+}
 
 function perderVida() {
 
@@ -210,28 +201,27 @@ function perderVida() {
     }
 }
 
-
 function gameOver() {
 
     ativo = false;
 
     titulo.innerHTML = "💀 GAME OVER";
+
     texto.innerHTML = "Você fez " + pontos + " pontos.";
 
     mensagem.classList.remove("escondido");
 }
-
 
 function vencer() {
 
     ativo = false;
 
     titulo.innerHTML = "🏆 VOCÊ VENCEU!";
+
     texto.innerHTML = "Você chegou aos 100 pontos!";
 
     mensagem.classList.remove("escondido");
 }
-
 
 function reiniciar() {
 
@@ -244,7 +234,6 @@ function reiniciar() {
     vidasTexto.innerHTML = 3;
     faseTexto.innerHTML = 1;
 
-
     inimigos.forEach(function(inimigo) {
         inimigo.remove();
     });
@@ -253,17 +242,15 @@ function reiniciar() {
         tiro.remove();
     });
 
-
     inimigos = [];
     tiros = [];
 
-
     nave.style.left = "50%";
 
+    avisoFase.classList.add("escondido");
     mensagem.classList.add("escondido");
 
     atualizar();
 }
-
 
 atualizar();

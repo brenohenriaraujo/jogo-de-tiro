@@ -45,7 +45,7 @@ body {
 }
 
 #jogo::before {
-    content: "✦  ·  ✧   ·   ✦   ·  ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦";
+    content: "✦  ·  ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦";
     position: absolute;
     top: 20px;
     left: 0;
@@ -72,6 +72,21 @@ body {
 .tiro {
     position: absolute;
     font-size: 18px;
+}
+
+#avisoFase {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #11182b;
+    padding: 25px 45px;
+    border: 2px solid #3c5ca8;
+    border-radius: 15px;
+}
+
+#avisoFase h1 {
+    font-size: 30px;
 }
 
 #mensagem {
