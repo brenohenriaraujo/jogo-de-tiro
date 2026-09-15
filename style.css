@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #080b16;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+#placar {
+    width: 100%;
+    background-color: #11182b;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #2c3e70;
+}
+
+#placar p {
+    color: #aaa;
+    font-size: 15px;
+}
+
+#placar b {
+    display: block;
+    color: white;
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+#jogo {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    margin: 20px auto;
+    background-color: #050812;
+    border: 2px solid #26365f;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#jogo::before {
+    content: "✦  ·  ✧   ·   ✦   ·  ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦   ·   ✧   ·   ✦";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    color: #39466b;
+    font-size: 20px;
+    line-height: 60px;
+    word-spacing: 20px;
+}
+
+#nave {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    font-size: 45px;
+    transition: left 0.05s;
+}
+
+.inimigo {
+    position: absolute;
+    font-size: 32px;
+}
+
+.tiro {
+    position: absolute;
+    font-size: 18px;
+}
+
+#mensagem {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    background-color: #11182b;
+    padding: 30px;
+    border: 2px solid #3c5ca8;
+    border-radius: 15px;
+}
+
+#mensagem h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+#mensagem p {
+    color: #bbb;
+}
+
+#mensagem button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #2864c7;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#mensagem button:hover {
+    background-color: #3979e5;
+}
+
+.escondido {
+    display: none;
+}
